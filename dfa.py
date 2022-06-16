@@ -8,10 +8,10 @@ class DFA:
         self.current_state = initial_state
 
     def evaluate_expression(self, expression):
-        current_state = self.initial_state
         for symbol in expression:
-            current_state = self.transitions[current_state][symbol]
-        if (current_state in self.final_states):
+            self.current_state = self.transitions[self.current_state][symbol]
+
+        if (self.current_state in self.final_states):
             return f'{expression} is Accepted'
         else:
             return f'{expression} is Rejected'
