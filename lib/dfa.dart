@@ -5,7 +5,7 @@ class DFA {
   final String initialState;
   final List<String> finalStates;
 
-  DFA({
+  const DFA({
     required this.states,
     required this.alphabet,
     required this.transitions,
