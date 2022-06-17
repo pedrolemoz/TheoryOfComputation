@@ -14,7 +14,10 @@ class EpsilonNFA {
   });
 
   bool evaluate(String symbol) {
-    final states = extendedTransition(initialState, symbol);
+    final eClosure = epsilonClosure(initialState);
+    final states = eClosure
+        .map((e) => extendedTransition(e, symbol))
+        .reduce((a, b) => a += b);
     return states.any((state) => finalStates.contains(state));
   }
 
@@ -23,7 +26,9 @@ class EpsilonNFA {
     final possibleNextStates = transitions[state]![symbol[0]];
     if (possibleNextStates == null) return [];
     return possibleNextStates
-        .map((nextState) => extendedTransition(nextState, symbol.substring(1)))
+        .map((nextState) => epsilonClosure(nextState)
+            .map((e) => extendedTransition(e, symbol.substring(1)))
+            .reduce((a, b) => a += b))
         .reduce((a, b) => a += b);
   }
 
@@ -40,27 +45,43 @@ class EpsilonNFA {
 const epsilon = 'ε';
 
 void main() {
+  // { a^n | n is even or divisible by 3 }
   final nfa = EpsilonNFA(
-    states: ['p', 'q', 'r'],
+    states: ['p', 'q' 'r', 'q1', 'r1', 'r2'],
     initialState: 'p',
-    finalStates: ['r'],
-    alphabet: ['a', 'b', 'c'],
+    finalStates: ['q', 'r'],
+    alphabet: ['a'],
     transitions: {
       'p': {
-        'b': ['q'],
-        'c': ['r'],
-        epsilon: ['r', 'q']
+        epsilon: ['q', 'r']
       },
       'q': {
-        'a': ['p'],
-        'b': ['r'],
-        'c': ['p', 'q']
+        'a': ['q1']
       },
-      'r': {}
+      'r': {
+        'a': ['r1'],
+      },
+      'q1': {
+        'a': ['q'],
+      },
+      'r1': {
+        'a': ['r2'],
+      },
+      'r2': {
+        'a': ['r'],
+      },
     },
   );
 
-  final r = nfa.epsilonClosure('p');
-
-  print(r);
+  print(nfa.evaluate(epsilon));
+  print(nfa.evaluate('a'));
+  print(nfa.evaluate('aa'));
+  print(nfa.evaluate('aaa'));
+  print(nfa.evaluate('aaaaaa'));
+  print(nfa.evaluate('aaaaa'));
+  print(nfa.evaluate('aaaaaaa'));
+  print(nfa.evaluate('aaaaaaaa'));
+  print(nfa.evaluate('aaaaaaaaa'));
+  print(nfa.evaluate('aaaaaaaaaa'));
+  print(nfa.evaluate('aaaaaaaaaaa'));
 }
