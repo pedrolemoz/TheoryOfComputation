@@ -38,7 +38,7 @@ void main() {
     },
   );
 
-  group('DFA over the set {0, 1} that starts with the substring "10"', () {
+  group('NFA over the set {0, 1} that starts with the substring "10"', () {
     test('Should accept the string "10"', () {
       final result = nfa1.evaluate('10');
       expect(result, true);
@@ -85,7 +85,7 @@ void main() {
     });
   });
 
-  group('DFA over the set {0, 1} that ends with the substring "11"', () {
+  group('NFA over the set {0, 1} that ends with the substring "11"', () {
     test('Should accept the string "11"', () {
       final result = nfa2.evaluate('11');
       expect(result, true);
@@ -112,6 +112,10 @@ void main() {
     });
     test('Should accept the string "1111111"', () {
       final result = nfa2.evaluate('1111111');
+      expect(result, true);
+    });
+    test('Should accept the string "00011000111"', () {
+      final result = nfa2.evaluate('00011000111');
       expect(result, true);
     });
     test('Should accept the string "1011011101101011"', () {
@@ -144,6 +148,14 @@ void main() {
     });
     test('Should reject the string "1110110"', () {
       final result = nfa2.evaluate('1110110');
+      expect(result, false);
+    });
+    test('Should reject the string "000110001"', () {
+      final result = nfa2.evaluate('000110001');
+      expect(result, false);
+    });
+    test('Should reject the string "0001100010"', () {
+      final result = nfa2.evaluate('0001100010');
       expect(result, false);
     });
     test('Should reject the string "0000000"', () {
