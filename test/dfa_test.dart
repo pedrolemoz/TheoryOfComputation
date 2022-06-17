@@ -51,7 +51,7 @@ void main() {
       final result = dfa1.evaluate('ababaababbbbaaabba');
       expect(result, true);
     });
-    test('Should accept the empty string', () {
+    test('Should reject the empty string', () {
       final result = dfa1.evaluate('');
       expect(result, false);
     });
@@ -115,7 +115,7 @@ void main() {
       final result = dfa2.evaluate('ababaababbbbaaabba');
       expect(result, false);
     });
-    test('Should reject the empty string', () {
+    test('Should accept the empty string', () {
       final result = dfa2.evaluate('');
       expect(result, true);
     });
