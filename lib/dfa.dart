@@ -13,13 +13,9 @@ class DFA {
     required this.finalStates,
   });
 
-  String evaluateExpression(String expression) {
-    final state = extendedTransition(initialState, expression);
-    if (finalStates.contains(state)) {
-      return '${expression} is Accepted';
-    } else {
-      return '${expression} is Rejected';
-    }
+  bool evaluateExpression(String symbol) {
+    final state = extendedTransition(initialState, symbol);
+    return finalStates.contains(state);
   }
 
   String extendedTransition(String state, String symbol) {
