@@ -13,21 +13,21 @@ class EpsilonNFA {
     required this.finalStates,
   });
 
-  bool evaluate(String symbol) {
+  bool evaluate(String input) {
     final eClosure = epsilonClosure(initialState);
     final states = eClosure
-        .map((e) => extendedTransition(e, symbol))
+        .map((cState) => extendedTransition(cState, input))
         .reduce((a, b) => a += b);
     return states.any((state) => finalStates.contains(state));
   }
 
-  List<String> extendedTransition(String state, String symbol) {
-    if (symbol.isEmpty) return [state];
-    final possibleNextStates = transitions[state]![symbol[0]];
+  List<String> extendedTransition(String state, String input) {
+    if (input.isEmpty) return [state];
+    final possibleNextStates = transitions[state]![input[0]];
     if (possibleNextStates == null) return [];
     return possibleNextStates
         .map((nextState) => epsilonClosure(nextState)
-            .map((e) => extendedTransition(e, symbol.substring(1)))
+            .map((cState) => extendedTransition(cState, input.substring(1)))
             .reduce((a, b) => a += b))
         .reduce((a, b) => a += b);
   }
