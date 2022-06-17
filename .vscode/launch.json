@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run all tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/"
+        },
+        {
+            "name": "Run DFA tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/dfa_test.dart"
+        },
+        {
+            "name": "Run NFA tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/nfa_test.dart"
+        },
+    ]
+}
