@@ -33,7 +33,7 @@ class DFA {
 
 void main() {
   final dfa = DFA(
-    states: ['q0', 'q1', 'q2'],
+    states: ['q0', 'q0', 'q1', 'q2'],
     initialState: 'q0',
     finalStates: ['q0'],
     alphabet: ['0', '1', '2'],
