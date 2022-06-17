@@ -21,6 +21,23 @@ void main() {
     },
   );
 
+  final nfa2 = NFA(
+    states: ['q0', 'q1', 'q2'],
+    initialState: 'q0',
+    finalStates: ['q2'],
+    alphabet: ['0', '1'],
+    transitions: {
+      'q0': {
+        '0': ['q0'],
+        '1': ['q0', 'q1']
+      },
+      'q1': {
+        '1': ['q2']
+      },
+      'q2': {},
+    },
+  );
+
   group('DFA over the set {0, 1} that starts with the substring "10"', () {
     test('Should accept the string "10"', () {
       final result = nfa1.evaluate('10');
@@ -64,6 +81,85 @@ void main() {
     });
     test('Should reject the string "1101010"', () {
       final result = nfa1.evaluate('1101010');
+      expect(result, false);
+    });
+  });
+
+  group('DFA over the set {0, 1} that ends with the substring "11"', () {
+    test('Should accept the string "11"', () {
+      final result = nfa2.evaluate('11');
+      expect(result, true);
+    });
+    test('Should accept the string "1011"', () {
+      final result = nfa2.evaluate('1011');
+      expect(result, true);
+    });
+    test('Should accept the string "1100111011"', () {
+      final result = nfa2.evaluate('1100111011');
+      expect(result, true);
+    });
+    test('Should accept the string "0000011"', () {
+      final result = nfa2.evaluate('0000011');
+      expect(result, true);
+    });
+    test('Should accept the string "11011011011"', () {
+      final result = nfa2.evaluate('11011011011');
+      expect(result, true);
+    });
+    test('Should accept the string "1011101110111"', () {
+      final result = nfa2.evaluate('1011101110111');
+      expect(result, true);
+    });
+    test('Should accept the string "1111111"', () {
+      final result = nfa2.evaluate('1111111');
+      expect(result, true);
+    });
+    test('Should accept the string "1011011101101011"', () {
+      final result = nfa2.evaluate('1011011101101011');
+      expect(result, true);
+    });
+    test('Should reject the empty string', () {
+      final result = nfa2.evaluate('');
+      expect(result, false);
+    });
+    test('Should reject the string "0"', () {
+      final result = nfa2.evaluate('0');
+      expect(result, false);
+    });
+    test('Should reject the string "1"', () {
+      final result = nfa2.evaluate('1');
+      expect(result, false);
+    });
+    test('Should reject the string "10"', () {
+      final result = nfa2.evaluate('10');
+      expect(result, false);
+    });
+    test('Should reject the string "01"', () {
+      final result = nfa2.evaluate('01');
+      expect(result, false);
+    });
+    test('Should reject the string "1001010"', () {
+      final result = nfa2.evaluate('1001010');
+      expect(result, false);
+    });
+    test('Should reject the string "1110110"', () {
+      final result = nfa2.evaluate('1110110');
+      expect(result, false);
+    });
+    test('Should reject the string "0000000"', () {
+      final result = nfa2.evaluate('0000000');
+      expect(result, false);
+    });
+    test('Should reject the string "101010101001"', () {
+      final result = nfa2.evaluate('101010101001');
+      expect(result, false);
+    });
+    test('Should reject the string "1010110"', () {
+      final result = nfa2.evaluate('1010110');
+      expect(result, false);
+    });
+    test('Should reject the string "1110"', () {
+      final result = nfa2.evaluate('1110');
       expect(result, false);
     });
   });
