@@ -13,7 +13,7 @@ class DFA {
     required this.finalStates,
   });
 
-  bool evaluateExpression(String symbol) {
+  bool evaluate(String symbol) {
     final state = extendedTransition(initialState, symbol);
     return finalStates.contains(state);
   }
