@@ -11,6 +11,7 @@ class NFA extends NonDeterministicAutomaton {
 
   @override
   bool evaluate(String input) {
+    if (!hasValidInput(input)) return false;
     final states = extendedTransition(initialState, input);
     return states.any((state) => finalStates.contains(state));
   }

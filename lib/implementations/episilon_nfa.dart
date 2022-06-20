@@ -11,6 +11,7 @@ class EpsilonNFA extends NonDeterministicAutomaton {
 
   @override
   bool evaluate(String input) {
+    if (!hasValidInput(input)) return false;
     final eClosure = epsilonClosure(initialState);
     final states = eClosure
         .map((cState) => extendedTransition(cState, input))

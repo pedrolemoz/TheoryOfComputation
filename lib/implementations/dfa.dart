@@ -11,6 +11,7 @@ class DFA extends DeterministicAutomaton {
 
   @override
   bool evaluate(String input) {
+    if (!hasValidInput(input)) return false;
     final state = extendedTransition(initialState, input);
     return finalStates.contains(state);
   }

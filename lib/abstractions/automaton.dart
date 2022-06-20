@@ -1,6 +1,4 @@
-import 'input_validator.dart';
-
-abstract class Automaton<TransitionsType> with InputValidator {
+abstract class Automaton<TransitionsType> {
   final List<String> states;
   final List<String> alphabet;
   final Map<String, Map<String, TransitionsType>> transitions;
@@ -14,6 +12,11 @@ abstract class Automaton<TransitionsType> with InputValidator {
     required this.initialState,
     required this.finalStates,
   });
+
+  bool hasValidInput(String input) {
+    final symbols = input.split('');
+    return symbols.every((symbol) => alphabet.contains(symbol));
+  }
 
   bool evaluate(String input);
 
