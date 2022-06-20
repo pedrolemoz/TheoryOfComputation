@@ -1,7 +1,7 @@
 import '../abstractions/constants.dart';
-import '../abstractions/non_deterministic_automaton.dart';
+import '../abstractions/epsilon_non_deterministic_automaton.dart';
 
-class EpsilonNFA extends NonDeterministicAutomaton {
+class EpsilonNFA extends EpsilonNonDeterministicAutomaton {
   const EpsilonNFA({
     required super.states,
     required super.alphabet,
@@ -32,6 +32,7 @@ class EpsilonNFA extends NonDeterministicAutomaton {
         .reduce((a, b) => a += b);
   }
 
+  @override
   List<String> epsilonClosure(String state) {
     if (!transitions[state]!.containsKey(epsilon)) return [state];
     final possibleNextStates = transitions[state]![epsilon]!;
