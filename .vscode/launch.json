@@ -19,5 +19,11 @@
             "request": "launch",
             "program": "./test/nfa_test.dart"
         },
+        {
+            "name": "Run eNFA tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/epsilon_nfa_test.dart"
+        },
     ]
 }
