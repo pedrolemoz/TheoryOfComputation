@@ -2,39 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import '../abstractions/constants.dart';
-
-const alphabet = [
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'j',
-  'k',
-  'l',
-  'm',
-  'n',
-  'o',
-  'p',
-  'q',
-  'r',
-  's',
-  't',
-  'u',
-  'v',
-  'x',
-  'y',
-  'z',
-];
+import 'episilon_nfa.dart';
 
 class LevenshteinAutomaton {
-  generateAutomaton(String input, int distance) {
-    List finalStates = [];
-    List states = [];
+  EpsilonNFA generateAutomaton(String input, int distance) {
+    List<String> finalStates = [];
+    List<String> states = [];
     Map<String, Map<String, List<String>>> transitions = {};
     final columns = input.length + 1;
     final rows = distance + 1;
@@ -50,14 +23,12 @@ class LevenshteinAutomaton {
             transitions.putIfAbsent(
               currentState,
               () => {
-                input[j]: [nextState],
-                // ...generateEntriesForAlphabet(
-                //   alphabet,
-                //   [bottomState, diagonalState],
-                //   input[j],
-                //   nextState,
-                // ),
-                sigma: [bottomState, diagonalState],
+                ...generateEntries(
+                  alphabet,
+                  [bottomState, diagonalState],
+                  input[j],
+                  nextState,
+                ),
                 epsilon: [diagonalState],
               },
             );
@@ -75,11 +46,10 @@ class LevenshteinAutomaton {
             transitions.putIfAbsent(
               currentState,
               () => {
-                // ...generateEntriesForAlphabet(
-                //   alphabet,
-                //   [bottomState],
-                // ),
-                sigma: [bottomState],
+                ...generateEntries(
+                  alphabet,
+                  [bottomState],
+                ),
               },
             );
           } else {
@@ -91,22 +61,26 @@ class LevenshteinAutomaton {
         }
       }
     }
-    createResultJSON(transitions);
-    print(states);
-    print(finalStates);
+    return EpsilonNFA(
+      states: states,
+      alphabet: alphabet,
+      transitions: transitions,
+      initialState: states[0],
+      finalStates: finalStates,
+    );
   }
 
-  Map generateEntriesForAlphabet(
+  Map<String, List<String>> generateEntries(
     List<String> alphabet,
     List<String> states, [
     String? currentInput,
     String? nextState,
   ]) {
-    Map entries = {};
+    Map<String, List<String>> entries = {};
     for (final element in alphabet) {
       if (currentInput != null && element == currentInput) {
         entries.addAll({
-          element: states + [nextState!]
+          element: [nextState!] + states
         });
       } else {
         entries.addAll({element: states});
@@ -124,6 +98,10 @@ void createResultJSON(Map<String, Map<String, List<String>>> transitions) {
 
 void main() {
   final automaton = LevenshteinAutomaton();
-
-  automaton.generateAutomaton('word', 2);
+  final eNfa = automaton.generateAutomaton('word', 2);
+  print(eNfa.evaluate('word'));
+  print(eNfa.evaluate('wod'));
+  print(eNfa.evaluate('wood'));
+  print(eNfa.evaluate('world'));
+  print(eNfa.evaluate('wsedw'));
 }
