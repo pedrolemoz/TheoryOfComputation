@@ -217,6 +217,10 @@ void main() {
       final result = nfa3.evaluate('bbbaaaabba');
       expect(result, true);
     });
+    test('Should reject the empty string', () {
+      final result = nfa3.evaluate('');
+      expect(result, false);
+    });
     test('Should reject the string "a"', () {
       final result = nfa3.evaluate('a');
       expect(result, false);
