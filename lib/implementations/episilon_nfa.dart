@@ -1,7 +1,8 @@
+import '../abstractions/constants.dart';
 import '../abstractions/non_deterministic_automaton.dart';
 
 class EpsilonNFA extends NonDeterministicAutomaton {
-  EpsilonNFA({
+  const EpsilonNFA({
     required super.states,
     required super.alphabet,
     required super.transitions,
@@ -39,31 +40,4 @@ class EpsilonNFA extends NonDeterministicAutomaton {
             .map((nextState) => epsilonClosure(nextState))
             .reduce((a, b) => a += b);
   }
-}
-
-const epsilon = 'ε';
-
-void main() {
-  // Σ = {a, b}, L = {w : w ends with bba}
-  final nfa2 = EpsilonNFA(
-    states: ['q0', 'q1' 'q2', 'q3'],
-    initialState: 'q0',
-    finalStates: ['q3'],
-    alphabet: ['a', 'b'],
-    transitions: {
-      'q0': {
-        'a': ['q0'],
-        'b': ['q0', 'q1'],
-      },
-      'q1': {
-        'b': ['q2'],
-      },
-      'q2': {
-        'a': ['q3'],
-      },
-      'q3': {}
-    },
-  );
-
-  print(nfa2.evaluate('abbba'));
 }
