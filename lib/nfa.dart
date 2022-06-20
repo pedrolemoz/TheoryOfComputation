@@ -13,17 +13,17 @@ class NFA {
     required this.finalStates,
   });
 
-  bool evaluate(String symbol) {
-    final states = extendedTransition(initialState, symbol);
+  bool evaluate(String input) {
+    final states = extendedTransition(initialState, input);
     return states.any((state) => finalStates.contains(state));
   }
 
-  List<String> extendedTransition(String state, String symbol) {
-    if (symbol.isEmpty) return [state];
-    final possibleNextStates = transitions[state]![symbol[0]];
+  List<String> extendedTransition(String state, String input) {
+    if (input.isEmpty) return [state];
+    final possibleNextStates = transitions[state]![input[0]];
     if (possibleNextStates == null) return [];
     return possibleNextStates
-        .map((nextState) => extendedTransition(nextState, symbol.substring(1)))
+        .map((nextState) => extendedTransition(nextState, input.substring(1)))
         .reduce((a, b) => a += b);
   }
 }

@@ -13,16 +13,16 @@ class DFA {
     required this.finalStates,
   });
 
-  bool evaluate(String symbol) {
-    final state = extendedTransition(initialState, symbol);
+  bool evaluate(String input) {
+    final state = extendedTransition(initialState, input);
     return finalStates.contains(state);
   }
 
-  String extendedTransition(String state, String symbol) {
-    if (symbol.isEmpty) return state;
+  String extendedTransition(String state, String input) {
+    if (input.isEmpty) return state;
     return extendedTransition(
-      transitions[state]![symbol[0]]!,
-      symbol.substring(1),
+      transitions[state]![input[0]]!,
+      input.substring(1),
     );
   }
 }
