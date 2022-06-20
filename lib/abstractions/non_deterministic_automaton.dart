@@ -1,19 +1,11 @@
 import 'automaton.dart';
 
-abstract class NonDeterministicAutomaton extends Automaton {
-  final List<String> states;
-  final List<String> alphabet;
-  final Map<String, Map<String, List<String>>> transitions;
-  final String initialState;
-  final List<String> finalStates;
-
+abstract class NonDeterministicAutomaton extends Automaton<List<String>> {
   const NonDeterministicAutomaton({
-    required this.states,
-    required this.alphabet,
-    required this.transitions,
-    required this.initialState,
-    required this.finalStates,
+    required super.states,
+    required super.alphabet,
+    required super.transitions,
+    required super.initialState,
+    required super.finalStates,
   });
-
-  List<String> extendedTransition(String state, String input);
 }
