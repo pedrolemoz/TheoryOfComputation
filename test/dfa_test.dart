@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:theory_of_computation/implementations/dfa.dart';
 
 void main() {
-  final dfa1 = DFA(
+  final dfa1 = const DFA(
     states: ['q0', 'q1', 'q2', 'q3', 'q4'],
     initialState: 'q0',
     finalStates: ['q4'],
@@ -16,7 +16,7 @@ void main() {
     },
   );
 
-  final dfa2 = DFA(
+  final dfa2 = const DFA(
     states: ['q0', 'q1', 'q2', 'q3', 'q4'],
     initialState: 'q0',
     finalStates: ['q0', 'q1', 'q2', 'q3'],

@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:theory_of_computation/implementations/nfa.dart';
 
 void main() {
-  final nfa1 = NFA(
+  final nfa1 = const NFA(
     states: ['q0', 'q1', 'q2'],
     initialState: 'q0',
     finalStates: ['q2'],
@@ -21,7 +21,7 @@ void main() {
     },
   );
 
-  final nfa2 = NFA(
+  final nfa2 = const NFA(
     states: ['q0', 'q1', 'q2'],
     initialState: 'q0',
     finalStates: ['q2'],
@@ -38,7 +38,7 @@ void main() {
     },
   );
 
-  final nfa3 = NFA(
+  final nfa3 = const NFA(
     states: ['q0', 'q1' 'q2', 'q3'],
     initialState: 'q0',
     finalStates: ['q3'],

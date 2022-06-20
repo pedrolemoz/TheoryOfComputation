@@ -3,7 +3,7 @@ import 'package:theory_of_computation/abstractions/constants.dart';
 import 'package:theory_of_computation/implementations/episilon_nfa.dart';
 
 void main() {
-  final eNfa = EpsilonNFA(
+  final eNfa = const EpsilonNFA(
     states: ['q0', 'q1' 'q2', 'q3', 'q4', 'q5', 'q6', 'q7'],
     initialState: 'q0',
     finalStates: ['q4', 'q7'],
