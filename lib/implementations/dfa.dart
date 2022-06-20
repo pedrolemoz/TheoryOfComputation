@@ -1,23 +1,21 @@
-class DFA {
-  final List<String> states;
-  final List<String> alphabet;
-  final Map<String, Map<String, String>> transitions;
-  final String initialState;
-  final List<String> finalStates;
+import '../abstractions/deterministic_automaton.dart';
 
+class DFA extends DeterministicAutomaton {
   const DFA({
-    required this.states,
-    required this.alphabet,
-    required this.transitions,
-    required this.initialState,
-    required this.finalStates,
+    required super.states,
+    required super.alphabet,
+    required super.transitions,
+    required super.initialState,
+    required super.finalStates,
   });
 
+  @override
   bool evaluate(String input) {
     final state = extendedTransition(initialState, input);
     return finalStates.contains(state);
   }
 
+  @override
   String extendedTransition(String state, String input) {
     if (input.isEmpty) return state;
     return extendedTransition(

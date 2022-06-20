@@ -1,23 +1,21 @@
-class NFA {
-  final List<String> states;
-  final List<String> alphabet;
-  final Map<String, Map<String, List<String>>> transitions;
-  final String initialState;
-  final List<String> finalStates;
+import '../abstractions/non_deterministic_automaton.dart';
 
+class NFA extends NonDeterministicAutomaton {
   const NFA({
-    required this.states,
-    required this.alphabet,
-    required this.transitions,
-    required this.initialState,
-    required this.finalStates,
+    required super.states,
+    required super.alphabet,
+    required super.transitions,
+    required super.initialState,
+    required super.finalStates,
   });
 
+  @override
   bool evaluate(String input) {
     final states = extendedTransition(initialState, input);
     return states.any((state) => finalStates.contains(state));
   }
 
+  @override
   List<String> extendedTransition(String state, String input) {
     if (input.isEmpty) return [state];
     final possibleNextStates = transitions[state]![input[0]];

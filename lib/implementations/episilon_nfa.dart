@@ -1,18 +1,15 @@
-class EpsilonNFA {
-  final List<String> states;
-  final List<String> alphabet;
-  final Map<String, Map<String, List<String>>> transitions;
-  final String initialState;
-  final List<String> finalStates;
+import '../abstractions/non_deterministic_automaton.dart';
 
-  const EpsilonNFA({
-    required this.states,
-    required this.alphabet,
-    required this.transitions,
-    required this.initialState,
-    required this.finalStates,
+class EpsilonNFA extends NonDeterministicAutomaton {
+  EpsilonNFA({
+    required super.states,
+    required super.alphabet,
+    required super.transitions,
+    required super.initialState,
+    required super.finalStates,
   });
 
+  @override
   bool evaluate(String input) {
     final eClosure = epsilonClosure(initialState);
     final states = eClosure
@@ -21,6 +18,7 @@ class EpsilonNFA {
     return states.any((state) => finalStates.contains(state));
   }
 
+  @override
   List<String> extendedTransition(String state, String input) {
     if (input.isEmpty) return [state];
     final possibleNextStates = transitions[state]![input[0]];
@@ -45,43 +43,26 @@ class EpsilonNFA {
 const epsilon = 'ε';
 
 void main() {
-  // { a^n | n is even or divisible by 3 }
-  final nfa = EpsilonNFA(
-    states: ['p', 'q' 'r', 'q1', 'r1', 'r2'],
-    initialState: 'p',
-    finalStates: ['q', 'r'],
-    alphabet: ['a'],
+  // Σ = {a, b}, L = {w : w ends with bba}
+  final nfa2 = EpsilonNFA(
+    states: ['q0', 'q1' 'q2', 'q3'],
+    initialState: 'q0',
+    finalStates: ['q3'],
+    alphabet: ['a', 'b'],
     transitions: {
-      'p': {
-        epsilon: ['q', 'r']
-      },
-      'q': {
-        'a': ['q1']
-      },
-      'r': {
-        'a': ['r1'],
+      'q0': {
+        'a': ['q0'],
+        'b': ['q0', 'q1'],
       },
       'q1': {
-        'a': ['q'],
+        'b': ['q2'],
       },
-      'r1': {
-        'a': ['r2'],
+      'q2': {
+        'a': ['q3'],
       },
-      'r2': {
-        'a': ['r'],
-      },
+      'q3': {}
     },
   );
 
-  print(nfa.evaluate(epsilon));
-  print(nfa.evaluate('a'));
-  print(nfa.evaluate('aa'));
-  print(nfa.evaluate('aaa'));
-  print(nfa.evaluate('aaaaaa'));
-  print(nfa.evaluate('aaaaa'));
-  print(nfa.evaluate('aaaaaaa'));
-  print(nfa.evaluate('aaaaaaaa'));
-  print(nfa.evaluate('aaaaaaaaa'));
-  print(nfa.evaluate('aaaaaaaaaa'));
-  print(nfa.evaluate('aaaaaaaaaaa'));
+  print(nfa2.evaluate('abbba'));
 }

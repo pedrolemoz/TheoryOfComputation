@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:theory_of_computation/dfa.dart';
+import 'package:theory_of_computation/implementations/dfa.dart';
 
 void main() {
   final dfa1 = DFA(

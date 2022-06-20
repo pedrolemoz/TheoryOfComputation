@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:theory_of_computation/nfa.dart';
+import 'package:theory_of_computation/implementations/nfa.dart';
 
 void main() {
   final nfa1 = NFA(
