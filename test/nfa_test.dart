@@ -38,6 +38,26 @@ void main() {
     },
   );
 
+  final nfa3 = NFA(
+    states: ['q0', 'q1' 'q2', 'q3'],
+    initialState: 'q0',
+    finalStates: ['q3'],
+    alphabet: ['a', 'b'],
+    transitions: {
+      'q0': {
+        'a': ['q0'],
+        'b': ['q0', 'q1'],
+      },
+      'q1': {
+        'b': ['q2'],
+      },
+      'q2': {
+        'a': ['q3'],
+      },
+      'q3': {}
+    },
+  );
+
   group('NFA over the set {0, 1} that starts with the substring "10"', () {
     test('Should accept the string "10"', () {
       final result = nfa1.evaluate('10');
@@ -172,6 +192,69 @@ void main() {
     });
     test('Should reject the string "1110"', () {
       final result = nfa2.evaluate('1110');
+      expect(result, false);
+    });
+  });
+
+  group('NFA over the set {a, b} that ends with the substring "bba"', () {
+    test('Should accept the string "bba"', () {
+      final result = nfa3.evaluate('bba');
+      expect(result, true);
+    });
+    test('Should accept the string "abba"', () {
+      final result = nfa3.evaluate('abba');
+      expect(result, true);
+    });
+    test('Should accept the string "bbbba"', () {
+      final result = nfa3.evaluate('bbbba');
+      expect(result, true);
+    });
+    test('Should accept the string "bababba"', () {
+      final result = nfa3.evaluate('bababba');
+      expect(result, true);
+    });
+    test('Should accept the string "bbbaaaabba"', () {
+      final result = nfa3.evaluate('bbbaaaabba');
+      expect(result, true);
+    });
+    test('Should reject the string "a"', () {
+      final result = nfa3.evaluate('a');
+      expect(result, false);
+    });
+    test('Should reject the string "b"', () {
+      final result = nfa3.evaluate('b');
+      expect(result, false);
+    });
+    test('Should reject the string "ab"', () {
+      final result = nfa3.evaluate('ab');
+      expect(result, false);
+    });
+    test('Should reject the string "ba"', () {
+      final result = nfa3.evaluate('ba');
+      expect(result, false);
+    });
+    test('Should reject the string "baa"', () {
+      final result = nfa3.evaluate('baa');
+      expect(result, false);
+    });
+    test('Should reject the string "abb"', () {
+      final result = nfa3.evaluate('abb');
+      expect(result, false);
+    });
+    test('Should reject the string "bab"', () {
+      final result = nfa3.evaluate('bab');
+      expect(result, false);
+    });
+    test('Should reject the string "aba"', () {
+      final result = nfa3.evaluate('aba');
+      expect(result, false);
+    });
+    test('Should reject the string "abab"', () {
+      final result = nfa3.evaluate('abab');
+      expect(result, false);
+    });
+    test('Should reject the string "baba"', () {
+      final result = nfa3.evaluate('baba');
       expect(result, false);
     });
   });
