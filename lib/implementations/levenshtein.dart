@@ -1,10 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
-
 import '../abstractions/constants.dart';
 import 'episilon_nfa.dart';
 
 class LevenshteinAutomaton {
+  const LevenshteinAutomaton();
+
   EpsilonNFA generateAutomaton(String input, int distance) {
     List<String> finalStates = [];
     List<String> states = [];
@@ -88,20 +87,4 @@ class LevenshteinAutomaton {
     }
     return entries;
   }
-}
-
-void createResultJSON(Map<String, Map<String, List<String>>> transitions) {
-  final string = json.encode(transitions);
-  final file = File('./result.json');
-  file.writeAsStringSync(string);
-}
-
-void main() {
-  final automaton = LevenshteinAutomaton();
-  final eNfa = automaton.generateAutomaton('word', 2);
-  print(eNfa.evaluate('word'));
-  print(eNfa.evaluate('wod'));
-  print(eNfa.evaluate('wood'));
-  print(eNfa.evaluate('world'));
-  print(eNfa.evaluate('wsedw'));
 }
