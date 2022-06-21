@@ -87,4 +87,19 @@ class LevenshteinAutomaton {
     }
     return entries;
   }
+
+  List<String> getAllStringsWithMaxDistance(
+    String input,
+    int distance,
+    List<String> strings,
+  ) {
+    List<String> matchingStrings = [];
+    final inputAutomaton = generateAutomaton(input, distance);
+    for (final string in strings) {
+      if (inputAutomaton.evaluate(string)) {
+        matchingStrings.add(string);
+      }
+    }
+    return matchingStrings;
+  }
 }
