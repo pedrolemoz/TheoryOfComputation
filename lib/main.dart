@@ -1,13 +1,24 @@
-import 'package:theory_of_computation/implementations/levenshtein.dart';
-import 'package:theory_of_computation/utils/pakistan_suicide_attacks.dart';
+import 'implementations/levenshtein.dart';
+import 'utils/pakistan_suicide_attacks.dart';
 
-void main() async {
-  final levenshteinAutomaton = const LevenshteinAutomaton();
-  var citysLowerCase = cities.map((e) => e.toLowerCase()).toList();
-  var automatons = [];
-  for (int i = 0; i <= citysLowerCase.length - 1; i++) {
-    final automaton =
-        levenshteinAutomaton.generateAutomaton(citysLowerCase[i], 1);
-    automatons.add(automaton);
+void main() {
+  const levenshteinAutomaton = LevenshteinAutomaton();
+
+  final citiesInLowercase =
+      cities.map((city) => city.toLowerCase().trim()).toSet().toList();
+
+  Set<String> analysedCities = {};
+
+  for (final city in citiesInLowercase) {
+    analysedCities.add(
+      levenshteinAutomaton
+          .getAllStringsWithMaxDistance(city, 1, citiesInLowercase)
+          .toSet()
+          .first,
+    );
+  }
+
+  for (final city in analysedCities) {
+    print(city);
   }
 }
