@@ -13,7 +13,6 @@ void main() {
     analysedCities.add(
       levenshteinAutomaton
           .getAllStringsWithMaxDistance(city, 1, citiesInLowercase)
-          .toSet()
           .first,
     );
   }
