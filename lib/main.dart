@@ -1,10 +1,15 @@
+import 'package:theory_of_computation/utils/utils.dart';
+
 import 'abstractions/constants.dart';
 import 'utils/pakistan_suicide_attacks.dart';
 import 'utils/ramen_ratings.dart';
 
 void main() {
-  _execute(base: cities, distance: 1);
-  _execute(base: brand, distance: 2);
+  List<String> citiesList = _execute(base: cities, distance: 1);
+  List<String> brandsList = _execute(base: brand, distance: 2);
+
+  createFile(nameFile: 'citiesList.txt', content: '{"cities": $citiesList}');
+  createFile(nameFile: 'brandsList.txt', content: '{"brand": $brandsList}');
 }
 
 List<String> _execute({required List<String> base, required int distance}) {
