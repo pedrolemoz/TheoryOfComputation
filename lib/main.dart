@@ -1,23 +1,28 @@
-import 'implementations/levenshtein.dart';
+import 'abstractions/constants.dart';
 import 'utils/pakistan_suicide_attacks.dart';
+import 'utils/ramen_ratings.dart';
 
 void main() {
-  const levenshteinAutomaton = LevenshteinAutomaton();
+  _execute(base: cities, distance: 1);
+  _execute(base: brand, distance: 2);
+}
 
-  final citiesInLowercase =
-      cities.map((city) => city.toLowerCase().trim()).toSet().toList();
+List<String> _execute({required List<String> base, required int distance}) {
+  Set<String> analysedBase = {};
 
-  Set<String> analysedCities = {};
+  List<String> baseLoweCase =
+      base.map((word) => word.toLowerCase().trim()).toSet().toList();
 
-  for (final city in citiesInLowercase) {
-    analysedCities.add(
-      levenshteinAutomaton
-          .getAllStringsWithMaxDistance(city, 1, citiesInLowercase)
-          .first,
-    );
+  for (String word in baseLoweCase) {
+    Set<String> wordResult = levenshteinAutomaton.getAllStringsWithMaxDistance(
+        word, distance, baseLoweCase);
+
+    if (wordResult.isNotEmpty) {
+      analysedBase.add(
+        wordResult.first,
+      );
+    }
   }
 
-  for (final city in analysedCities) {
-    print(city);
-  }
+  return baseLoweCase;
 }

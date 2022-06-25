@@ -1,5 +1,8 @@
+import '../implementations/levenshtein.dart';
+
 const epsilon = 'ε';
 const sigma = 'Σ';
+const levenshteinAutomaton = LevenshteinAutomaton();
 const alphabet = [
   'a',
   'b',

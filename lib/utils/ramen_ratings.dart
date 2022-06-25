@@ -1,5 +1,4 @@
 final brand = [
-  'Brand',
   'New Touch',
   'Just Way',
   'Nissin',
