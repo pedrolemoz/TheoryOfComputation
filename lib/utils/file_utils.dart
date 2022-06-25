@@ -5,6 +5,7 @@ class FileUtils {
     required String fileName,
     required Iterable<String> contents,
   }) async {
+    print('Creating $fileName');
     final file = File(fileName);
     final contentToWrite = contents.reduce((a, b) => a += '\n$b');
     await file.writeAsString(contentToWrite);
