@@ -88,11 +88,11 @@ class LevenshteinAutomaton {
     return entries;
   }
 
-  static Set<String> getStringsWithDistance(
-    String input,
-    int distance,
-    Iterable<String> source,
-  ) {
+  static Set<String> getStringsWithDistance({
+    required String input,
+    required int distance,
+    required Iterable<String> source,
+  }) {
     Set<String> matchingStrings = {};
     final inputAutomaton = generateAutomaton(input, distance);
     for (final string in source) {
@@ -112,9 +112,9 @@ class LevenshteinAutomaton {
         source.map((word) => word.toLowerCase().trim()).toSet();
     for (final word in sourceInLowerCase) {
       final result = getStringsWithDistance(
-        word,
-        distance,
-        sourceInLowerCase,
+        input: word,
+        distance: distance,
+        source: sourceInLowerCase,
       );
       if (result.isNotEmpty) analysedSource.add(result.first);
     }
