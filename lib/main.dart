@@ -1,33 +1,24 @@
-import 'package:theory_of_computation/utils/utils.dart';
-
-import 'abstractions/constants.dart';
+import 'implementations/levenshtein.dart';
+import 'utils/file_utils.dart';
 import 'utils/pakistan_suicide_attacks.dart';
 import 'utils/ramen_ratings.dart';
 
-void main() {
-  List<String> citiesList = _execute(base: cities, distance: 1);
-  List<String> brandsList = _execute(base: brand, distance: 2);
+Future<void> main() async {
+  final analysedCities = LevenshteinAutomaton.removeInconsistencies(
+    source: cities,
+    distance: 1,
+  );
+  final analysedBrands = LevenshteinAutomaton.removeInconsistencies(
+    source: brands,
+    distance: 2,
+  );
 
-  createFile(nameFile: 'citiesList.txt', content: '{"cities": $citiesList}');
-  createFile(nameFile: 'brandsList.txt', content: '{"brand": $brandsList}');
-}
-
-List<String> _execute({required List<String> base, required int distance}) {
-  Set<String> analysedBase = {};
-
-  List<String> baseLoweCase =
-      base.map((word) => word.toLowerCase().trim()).toSet().toList();
-
-  for (String word in baseLoweCase) {
-    Set<String> wordResult = levenshteinAutomaton.getAllStringsWithMaxDistance(
-        word, distance, baseLoweCase);
-
-    if (wordResult.isNotEmpty) {
-      analysedBase.add(
-        wordResult.first,
-      );
-    }
-  }
-
-  return baseLoweCase;
+  await FileUtils.createOutputFile(
+    fileName: 'analysed_cities.txt',
+    contents: analysedCities,
+  );
+  await FileUtils.createOutputFile(
+    fileName: 'analysed_brands.txt',
+    contents: analysedBrands,
+  );
 }

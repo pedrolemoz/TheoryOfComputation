@@ -1,4 +1,4 @@
-final brand = [
+final brands = [
   'New Touch',
   'Just Way',
   'Nissin',

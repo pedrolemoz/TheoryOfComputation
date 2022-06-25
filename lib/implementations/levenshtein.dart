@@ -4,7 +4,7 @@ import 'episilon_nfa.dart';
 class LevenshteinAutomaton {
   const LevenshteinAutomaton();
 
-  EpsilonNFA generateAutomaton(String input, int distance) {
+  static EpsilonNFA generateAutomaton(String input, int distance) {
     List<String> finalStates = [];
     List<String> states = [];
     Map<String, Map<String, List<String>>> transitions = {};
@@ -22,7 +22,7 @@ class LevenshteinAutomaton {
             transitions.putIfAbsent(
               currentState,
               () => {
-                ...generateEntries(
+                ..._generateEntries(
                   alphabet,
                   [bottomState, diagonalState],
                   input[j],
@@ -45,7 +45,7 @@ class LevenshteinAutomaton {
             transitions.putIfAbsent(
               currentState,
               () => {
-                ...generateEntries(
+                ..._generateEntries(
                   alphabet,
                   [bottomState],
                 ),
@@ -69,7 +69,7 @@ class LevenshteinAutomaton {
     );
   }
 
-  Map<String, List<String>> generateEntries(
+  static Map<String, List<String>> _generateEntries(
     List<String> alphabet,
     List<String> states, [
     String? currentInput,
@@ -88,18 +88,36 @@ class LevenshteinAutomaton {
     return entries;
   }
 
-  Set<String> getAllStringsWithMaxDistance(
+  static Set<String> getStringsWithDistance(
     String input,
     int distance,
-    List<String> strings,
+    Iterable<String> source,
   ) {
     Set<String> matchingStrings = {};
     final inputAutomaton = generateAutomaton(input, distance);
-    for (final string in strings) {
+    for (final string in source) {
       if (inputAutomaton.evaluate(string)) {
         matchingStrings.add(string);
       }
     }
     return matchingStrings;
+  }
+
+  static Set<String> removeInconsistencies({
+    required List<String> source,
+    required int distance,
+  }) {
+    Set<String> analysedSource = {};
+    final sourceInLowerCase =
+        source.map((word) => word.toLowerCase().trim()).toSet();
+    for (final word in sourceInLowerCase) {
+      final result = getStringsWithDistance(
+        word,
+        distance,
+        sourceInLowerCase,
+      );
+      if (result.isNotEmpty) analysedSource.add(result.first);
+    }
+    return analysedSource;
   }
 }

@@ -2,8 +2,7 @@ import 'package:test/test.dart';
 import 'package:theory_of_computation/implementations/levenshtein.dart';
 
 void main() {
-  final levenshteinAutomaton = const LevenshteinAutomaton();
-  final wordAutomaton = levenshteinAutomaton.generateAutomaton('word', 2);
+  final wordAutomaton = LevenshteinAutomaton.generateAutomaton('word', 2);
 
   group('String "word" with distance 2', () {
     test('Should accept the string "word"', () {
