@@ -2,8 +2,8 @@
 
 ## Team:
 
-- João Pedro Pereira Lemos (@pedrolemoz)
-- Oziel Pontes da Silva Filho (@OzielFilho)
+- João Pedro Pereira Lemos ([@pedrolemoz](https://github.com/pedrolemoz))
+- Oziel Pontes da Silva Filho ([@OzielFilho](https://github.com/OzielFilho))
 
 ### How to run
 
