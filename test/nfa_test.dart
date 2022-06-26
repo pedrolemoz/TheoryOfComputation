@@ -2,63 +2,25 @@ import 'package:test/test.dart';
 import 'package:theory_of_computation/implementations/nfa.dart';
 
 void main() {
-  final nfa1 = const NFA(
-    states: ['q0', 'q1', 'q2'],
-    initialState: 'q0',
-    finalStates: ['q2'],
-    alphabet: ['0', '1'],
-    transitions: {
-      'q0': {
-        '1': ['q1']
-      },
-      'q1': {
-        '0': ['q2']
-      },
-      'q2': {
-        '1': ['q2'],
-        '0': ['q2']
-      },
-    },
-  );
-
-  final nfa2 = const NFA(
-    states: ['q0', 'q1', 'q2'],
-    initialState: 'q0',
-    finalStates: ['q2'],
-    alphabet: ['0', '1'],
-    transitions: {
-      'q0': {
-        '0': ['q0'],
-        '1': ['q0', 'q1']
-      },
-      'q1': {
-        '1': ['q2']
-      },
-      'q2': {},
-    },
-  );
-
-  final nfa3 = const NFA(
-    states: ['q0', 'q1' 'q2', 'q3'],
-    initialState: 'q0',
-    finalStates: ['q3'],
-    alphabet: ['a', 'b'],
-    transitions: {
-      'q0': {
-        'a': ['q0'],
-        'b': ['q0', 'q1'],
-      },
-      'q1': {
-        'b': ['q2'],
-      },
-      'q2': {
-        'a': ['q3'],
-      },
-      'q3': {}
-    },
-  );
-
   group('NFA over the set {0, 1} that starts with the substring "10"', () {
+    final nfa1 = const NFA(
+      states: ['q0', 'q1', 'q2'],
+      initialState: 'q0',
+      finalStates: ['q2'],
+      alphabet: ['0', '1'],
+      transitions: {
+        'q0': {
+          '1': ['q1']
+        },
+        'q1': {
+          '0': ['q2']
+        },
+        'q2': {
+          '1': ['q2'],
+          '0': ['q2']
+        },
+      },
+    );
     test('Should accept the string "10"', () {
       final result = nfa1.evaluate('10');
       expect(result, true);
@@ -106,6 +68,22 @@ void main() {
   });
 
   group('NFA over the set {0, 1} that ends with the substring "11"', () {
+    final nfa2 = const NFA(
+      states: ['q0', 'q1', 'q2'],
+      initialState: 'q0',
+      finalStates: ['q2'],
+      alphabet: ['0', '1'],
+      transitions: {
+        'q0': {
+          '0': ['q0'],
+          '1': ['q0', 'q1']
+        },
+        'q1': {
+          '1': ['q2']
+        },
+        'q2': {},
+      },
+    );
     test('Should accept the string "11"', () {
       final result = nfa2.evaluate('11');
       expect(result, true);
@@ -197,6 +175,25 @@ void main() {
   });
 
   group('NFA over the set {a, b} that ends with the substring "bba"', () {
+    final nfa3 = const NFA(
+      states: ['q0', 'q1' 'q2', 'q3'],
+      initialState: 'q0',
+      finalStates: ['q3'],
+      alphabet: ['a', 'b'],
+      transitions: {
+        'q0': {
+          'a': ['q0'],
+          'b': ['q0', 'q1'],
+        },
+        'q1': {
+          'b': ['q2'],
+        },
+        'q2': {
+          'a': ['q3'],
+        },
+        'q3': {}
+      },
+    );
     test('Should accept the string "bba"', () {
       final result = nfa3.evaluate('bba');
       expect(result, true);

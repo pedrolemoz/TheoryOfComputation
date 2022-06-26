@@ -25,5 +25,11 @@
             "request": "launch",
             "program": "./test/epsilon_nfa_test.dart"
         },
+        {
+            "name": "Run Levenshtein automaton tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/levenshtein_test.dart"
+        },
     ]
 }

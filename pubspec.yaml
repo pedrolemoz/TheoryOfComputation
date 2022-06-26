@@ -7,4 +7,3 @@ environment:
   
 dev_dependencies:
   test: ^1.21.2
-  

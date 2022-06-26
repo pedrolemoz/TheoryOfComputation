@@ -2,35 +2,20 @@ import 'package:test/test.dart';
 import 'package:theory_of_computation/implementations/dfa.dart';
 
 void main() {
-  final dfa1 = const DFA(
-    states: ['q0', 'q1', 'q2', 'q3', 'q4'],
-    initialState: 'q0',
-    finalStates: ['q4'],
-    alphabet: ['a', 'b'],
-    transitions: {
-      'q0': {'a': 'q1', 'b': 'q0'},
-      'q1': {'a': 'q2', 'b': 'q0'},
-      'q2': {'a': 'q2', 'b': 'q3'},
-      'q3': {'a': 'q1', 'b': 'q4'},
-      'q4': {'a': 'q4', 'b': 'q4'},
-    },
-  );
-
-  final dfa2 = const DFA(
-    states: ['q0', 'q1', 'q2', 'q3', 'q4'],
-    initialState: 'q0',
-    finalStates: ['q0', 'q1', 'q2', 'q3'],
-    alphabet: ['a', 'b'],
-    transitions: {
-      'q0': {'a': 'q1', 'b': 'q0'},
-      'q1': {'a': 'q2', 'b': 'q0'},
-      'q2': {'a': 'q2', 'b': 'q3'},
-      'q3': {'a': 'q1', 'b': 'q4'},
-      'q4': {'a': 'q4', 'b': 'q4'},
-    },
-  );
-
   group('DFA over the set {a, b} that contains the substring "aabb"', () {
+    final dfa1 = const DFA(
+      states: ['q0', 'q1', 'q2', 'q3', 'q4'],
+      initialState: 'q0',
+      finalStates: ['q4'],
+      alphabet: ['a', 'b'],
+      transitions: {
+        'q0': {'a': 'q1', 'b': 'q0'},
+        'q1': {'a': 'q2', 'b': 'q0'},
+        'q2': {'a': 'q2', 'b': 'q3'},
+        'q3': {'a': 'q1', 'b': 'q4'},
+        'q4': {'a': 'q4', 'b': 'q4'},
+      },
+    );
     test('Should accept the string "aabb"', () {
       final result = dfa1.evaluate('aabb');
       expect(result, true);
@@ -95,6 +80,20 @@ void main() {
 
   group('DFA over the set {a, b} that does not contains the substring "aabb"',
       () {
+    final dfa2 = const DFA(
+      states: ['q0', 'q1', 'q2', 'q3', 'q4'],
+      initialState: 'q0',
+      finalStates: ['q0', 'q1', 'q2', 'q3'],
+      alphabet: ['a', 'b'],
+      transitions: {
+        'q0': {'a': 'q1', 'b': 'q0'},
+        'q1': {'a': 'q2', 'b': 'q0'},
+        'q2': {'a': 'q2', 'b': 'q3'},
+        'q3': {'a': 'q1', 'b': 'q4'},
+        'q4': {'a': 'q4', 'b': 'q4'},
+      },
+    );
+
     test('Should reject the string "aabb"', () {
       final result = dfa2.evaluate('aabb');
       expect(result, false);
