@@ -2,9 +2,8 @@ import 'package:test/test.dart';
 import 'package:theory_of_computation/implementations/levenshtein.dart';
 
 void main() {
-  final wordAutomaton = LevenshteinAutomaton.generateAutomaton('word', 2);
-
   group('String "word" with distance 2', () {
+    final wordAutomaton = LevenshteinAutomaton.generateAutomaton('word', 2);
     test('Should accept the string "word"', () {
       final result = wordAutomaton.evaluate('word');
       expect(result, true);
@@ -40,6 +39,24 @@ void main() {
     test('Should reject the string "hey"', () {
       final result = wordAutomaton.evaluate('hey');
       expect(result, false);
+    });
+  });
+
+  group('Data cleaning with distance 1 using a list of strings', () {
+    final source = [
+      'kurram agency',
+      'kuram agency',
+      'kurram agency ',
+      'kuram agency '
+    ];
+
+    test('Should return a set containing only the string "kurram agency"', () {
+      final expectedResult = {'kurram agency'};
+      final result = LevenshteinAutomaton.removeInconsistencies(
+        source: source,
+        distance: 1,
+      );
+      expect(result, expectedResult);
     });
   });
 }
